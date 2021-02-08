@@ -35,7 +35,6 @@ jobs:
         with:
          api-key: ${{ secrets.BRIDGECREW_API_KEY }}
          directory: "example/examplea"
-         soft_fail: false
          skip_check: CKV_GCP_23
          output_format: cli
          quiet: false
