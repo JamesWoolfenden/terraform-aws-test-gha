@@ -38,7 +38,7 @@ jobs:
          soft_fail: false
          skip_check: CKV_GCP_23
          output_format: cli
-         quiet: "true"
+         quiet: false
          external_checks_dir: ./checkov
   version:
     name: versioning
