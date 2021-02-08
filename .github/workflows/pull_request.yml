@@ -1,9 +1,6 @@
 ---
-name: Verify and Bump
-on:
-  push:
-    branches:
-      - main
+name: pull_request
+on: pull_request
 jobs:
   checkov:
 
@@ -11,8 +8,6 @@ jobs:
 
     steps:
       - uses: actions/checkout@v2
-        with:
-          ref: main
       - name: Set up Python 3.8
         uses: actions/setup-python@v1
         with:
@@ -36,8 +31,6 @@ jobs:
 
     steps:   
       - uses: actions/checkout@v2
-        with:
-          ref: main
       - name: Set up Python 3.8
         uses: actions/setup-python@v1
         with:
@@ -54,15 +47,3 @@ jobs:
          #external_checks_dir: checkov
          soft_fail: false
 
-  version:
-    name: versioning
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@master
-      - name: Bump version and push tag
-        uses: anothrNick/github-tag-action@master
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          DEFAULT_BUMP: patch
-          WITH_V: "true"
-    needs: [checkov, Bridgecrew]
