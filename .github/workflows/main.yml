@@ -40,6 +40,15 @@ jobs:
          output_format: cli
          quiet: false
          external_checks_dir: ./checkov
+      - name: Run Checkov action
+        id: checkov
+        uses: bridgecrewio/checkov-action@master
+        with:
+          directory: example/examplea
+          skip_check: CKV_GCP_23
+          quiet: false
+          framework: terraform 
+          duff: true
   version:
     name: versioning
     runs-on: ubuntu-latest
