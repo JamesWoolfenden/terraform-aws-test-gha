@@ -40,11 +40,11 @@ jobs:
         uses: bridgecrewio/bridgecrew-action@master
         with:
          api-key: ${{ secrets.BRIDGECREW_API_KEY }}
-         #directory: example/examplea
+         directory: example/examplea
          skip_check: CKV_GCP_23
          #output_format: cli
          quiet: false
-         external_checks_dir: checkov
+         #external_checks_dir: checkov
          soft_fail: false
 
   version:
