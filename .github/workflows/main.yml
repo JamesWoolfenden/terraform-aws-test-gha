@@ -5,7 +5,7 @@ on:
     branches:
       - main
 jobs:
-  build:
+  checkov:
 
     runs-on: ubuntu-latest
 
@@ -17,18 +17,24 @@ jobs:
         uses: actions/setup-python@v1
         with:
           python-version: 3.8
-      - name: "Terraform Init"
-        uses: hashicorp/terraform-github-actions@master
+      - name: Run Checkov action
+        id: checkov
+        uses: bridgecrewio/checkov-action@master
         with:
-          tf_actions_version: 0.14.0
-          tf_actions_subcommand: "init"
-          tf_actions_working_dir: "example/examplea"
-      - name: "Terraform Validate"
-        uses: hashicorp/terraform-github-actions@master
-        with:
-          tf_actions_version: 0.14.0
-          tf_actions_subcommand: "validate"
-          tf_actions_working_dir: "example/examplea"
+          directory: example/examplea
+          skip_check: CKV_GCP_23
+          quiet: false
+          framework: terraform 
+          #args
+          #check', 
+          external_checks_dirs: checkov
+          #external_checks_repos
+
+  Bridgecrew:
+
+    runs-on: ubuntu-latest
+
+    steps:   
       - name: Run Bridgecrew 
         id: Bridgecrew
         uses: bridgecrewio/bridgecrew-action@master
@@ -39,15 +45,7 @@ jobs:
          #output_format: cli
          quiet: false
          external_checks_dir: ./checkov
-      - name: Run Checkov action
-        id: checkov
-        uses: bridgecrewio/checkov-action@master
-        with:
-          directory: example/examplea
-          skip_check: CKV_GCP_23
-          quiet: false
-          framework: terraform 
-          duff: true
+
   version:
     name: versioning
     runs-on: ubuntu-latest
@@ -59,4 +57,4 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           DEFAULT_BUMP: patch
           WITH_V: "true"
-    needs: build
+    needs: [checkov, Bridgecrew]
