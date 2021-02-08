@@ -35,11 +35,11 @@ jobs:
         with:
          api-key: ${{ secrets.BRIDGECREW_API_KEY }}
          directory: "example/examplea"
-         soft-fail: false
+         soft_fail: false
          check: terraform
-         skip-check: CKV_GCP_23
+         skip_check: CKV_GCP_23
          quiet: "true"
-         external-checks-dir: ./checkov
+         external_checks_dir: ./checkov
   version:
     name: versioning
     runs-on: ubuntu-latest
