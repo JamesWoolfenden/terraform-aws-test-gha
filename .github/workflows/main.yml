@@ -37,7 +37,7 @@ jobs:
          directory: "example/examplea"
          soft_fail: false
          skip_check: CKV_GCP_23
-         output: cli
+         output_format: cli
          quiet: "true"
          external_checks_dir: ./checkov
   version:
